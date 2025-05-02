@@ -1,5 +1,5 @@
 import pandas as pd
-from sqlalchemy import create_engine
+from sqlalchemy import create_engine, text
 from pymongo import MongoClient
 import pymysql
 
@@ -29,10 +29,51 @@ log_habitacion['fechaHora'] = pd.to_datetime(log_habitacion['timestamp'])
 print("Insertando datos en MySQL...")
 engine = create_engine(f"mysql+pymysql://{MYSQL_USER}:{MYSQL_PASSWORD}@{MYSQL_HOST}:{MYSQL_PORT}/{MYSQL_DB}")
 
-pacientes.to_sql("Pacientes", engine, if_exists="replace", index=False)
-habitaciones.to_sql("Habitaciones", engine, if_exists="replace", index=False)
-log_actividades.to_sql("LogActividades", engine, if_exists="replace", index=False)
-log_habitacion.to_sql("LogHabitaciones", engine, if_exists="replace", index=False)
+with engine.connect() as conn:
+    print("✅ Conexión a MySQL establecida.")
+
+    # Crear tablas con claves foráneas si no existen
+    conn.execute(text("""
+    CREATE TABLE IF NOT EXISTS Pacientes (
+        idPaciente INT PRIMARY KEY,
+        edad INT,
+        genero VARCHAR(20)
+    );
+    """))
+
+    conn.execute(text("""
+    CREATE TABLE IF NOT EXISTS Habitaciones (
+        idHabitacion INT PRIMARY KEY,
+        habitacion VARCHAR(100)
+    );
+    """))
+
+    conn.execute(text("""
+    CREATE TABLE IF NOT EXISTS LogActividades (
+        id INT AUTO_INCREMENT PRIMARY KEY,
+        idPaciente INT,
+        idHabitacion INT,
+        fechaHora DATETIME,
+        actividad TEXT,
+        FOREIGN KEY (idPaciente) REFERENCES Pacientes(idPaciente),
+        FOREIGN KEY (idHabitacion) REFERENCES Habitaciones(idHabitacion)
+    );
+    """))
+
+    conn.execute(text("""
+    CREATE TABLE IF NOT EXISTS LogHabitaciones (
+        id INT AUTO_INCREMENT PRIMARY KEY,
+        idHabitacion INT,
+        fechaHora DATETIME,
+        status TEXT,
+        FOREIGN KEY (idHabitacion) REFERENCES Habitaciones(idHabitacion)
+    );
+    """))
+
+pacientes.to_sql("Pacientes", engine, if_exists="append", index=False)
+habitaciones.to_sql("Habitaciones", engine, if_exists="append", index=False)
+log_actividades.to_sql("LogActividades", engine, if_exists="append", index=False)
+log_habitacion.to_sql("LogHabitaciones", engine, if_exists="append", index=False)
 
 print("Datos insertados en MySQL.")
 
