@@ -1,0 +1,45 @@
+// Ejemplo de documento en la colección Pacientes
+{
+  "_id": 134247,              // Usamos el idPaciente como _id para identificar el documento
+  "edad": 79,
+  "genero": "Masculino",
+  "actividades": [
+    {
+      "fechaHora": ISODate("2021-05-31T07:12:14Z"),
+      "actividad": "Paciente inicia el registro.",
+      "habitacion": { "idHabitacion": 10, "nombre": "Recepción" }
+    },
+    {
+      "fechaHora": ISODate("2021-05-31T07:13:16Z"),
+      "actividad": "Paciente recibe papelería en recepción.",
+      "habitacion": { "idHabitacion": 10, "nombre": "Recepción" }
+    },
+    {
+      "fechaHora": ISODate("2021-05-31T07:17:47Z"),
+      "actividad": "Enfermera comienza la revisión del paciente.",
+      "habitacion": { "idHabitacion": 10, "nombre": "Recepción" }
+    }
+    // ... otras actividades del paciente (posiblemente en distintas habitaciones)
+  ]
+}
+
+// Ejemplo de documento en la colección Habitaciones
+{
+  "_id": 12,                 // Usamos el idHabitacion como _id del documento de habitación
+  "nombre": "Estación de revisión 1",
+  "estados": [
+    {
+      "fechaHora": ISODate("2021-05-31T07:19:33Z"),
+      "estado": "Sala no disponible."
+    },
+    {
+      "fechaHora": ISODate("2021-05-31T07:20:00Z"),
+      "estado": "Inicia limpieza."
+    },
+    {
+      "fechaHora": ISODate("2021-05-31T07:20:35Z"),
+      "estado": "Sala disponible."
+    }
+    // ... otros cambios de estado de esta habitación en diferentes momentos
+  ]
+}

@@ -1,0 +1,133 @@
+-- 1. Total de pacientes por categoría de edad (Pediátrico, Mediana edad, Geriátrico)
+
+db.Pacientes.aggregate([
+  {
+    $group: {
+      _id: {
+        $cond: [
+          { $lt: ["$edad", 18] }, "Pediátrico",
+          { $cond: [ { $gt: ["$edad", 60] }, "Geriátrico", "Mediana edad" ] }
+        ]
+      },
+      total_pacientes: { $sum: 1 }
+    }
+  },
+  {
+    $project: { categoria_edad: "$_id", total_pacientes: 1, _id: 0 }
+  }
+]);
+
+-- 2. Cantidad de pacientes que pasan por cada habitación
+
+db.Pacientes.aggregate([
+  { $unwind: "$actividades" },
+  {
+    $group: {
+      _id: "$actividades.habitacion.idHabitacion",
+      nombre_habitacion: { $first: "$actividades.habitacion.nombre" },
+      pacientes_unicos: { $addToSet: "$idPaciente" }
+    }
+  },
+  {
+    $project: {
+      habitacion: "$nombre_habitacion",
+      total_pacientes: { $size: "$pacientes_unicos" },
+      _id: 0
+    }
+  }
+]);
+
+
+-- 3. Cantidad de pacientes que llegan a la clínica, agrupados por género
+
+db.Pacientes.aggregate([
+  {
+    $group: { _id: "$genero", total_pacientes: { $sum: 1 } }
+  },
+  {
+    $project: { genero: "$_id", total_pacientes: 1, _id: 0 }
+  }
+]);
+
+-- 4. Top 5 edades más atendidas en la clínica
+
+db.Pacientes.aggregate([
+  { $group: { _id: "$edad", total_pacientes: { $sum: 1 } } },
+  { $sort: { total_pacientes: -1 } },
+  { $limit: 5 },
+  { $project: { edad: "$_id", total_pacientes: 1, _id: 0 } }
+]);
+
+-- 5. Top 5 edades menos atendidas en la clínica
+
+db.Pacientes.aggregate([
+  { $group: { _id: "$edad", total_pacientes: { $sum: 1 } } },
+  { $sort: { total_pacientes: 1 } },
+  { $limit: 5 },
+  { $project: { edad: "$_id", total_pacientes: 1, _id: 0 } }
+]);
+
+-- 6. Top 5 habitaciones más utilizadas
+
+db.Pacientes.aggregate([
+  { $unwind: "$actividades" },
+  {
+    $group: {
+      _id: "$actividades.habitacion.idHabitacion",
+      nombre_habitacion: { $first: "$actividades.habitacion.nombre" },
+      pacientes_unicos: { $addToSet: "$idPaciente" }
+    }
+  },
+  {
+    $project: {
+      habitacion: "$nombre_habitacion",
+      total_pacientes: { $size: "$pacientes_unicos" },
+      _id: 0
+    }
+  },
+  { $sort: { total_pacientes: -1 } },
+  { $limit: 5 }
+]);
+
+-- 7. Top 5 habitaciones menos utilizadas
+
+db.Pacientes.aggregate([
+  { $unwind: "$actividades" },
+  {
+    $group: {
+      _id: "$actividades.habitacion.idHabitacion",
+      nombre_habitacion: { $first: "$actividades.habitacion.nombre" },
+      pacientes_unicos: { $addToSet: "$idPaciente" }
+    }
+  },
+  {
+    $project: {
+      habitacion: "$nombre_habitacion",
+      total_pacientes: { $size: "$pacientes_unicos" },
+      _id: 0
+    }
+  },
+  { $sort: { total_pacientes: 1 } },
+  { $limit: 5 }
+]);
+
+-- 8. Día con más pacientes en la clínica
+
+db.Pacientes.aggregate([
+  { $unwind: "$actividades" },
+  {
+    $group: {
+      _id: { $dateToString: { format: "%Y-%m-%d", date: "$actividades.fechaHora" } },
+      pacientes_unicos: { $addToSet: "$idPaciente" }
+    }
+  },
+  {
+    $project: {
+      fecha: "$_id",
+      total_pacientes: { $size: "$pacientes_unicos" },
+      _id: 0
+    }
+  },
+  { $sort: { total_pacientes: -1 } },
+  { $limit: 1 }
+]);
