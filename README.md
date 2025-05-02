@@ -16,11 +16,23 @@ ______
 
 ## <div align="center">  Fases de Desarrollo </div> 
 
+### Correr Docker
+
+```bash
+$ docker compose -f docker-compose.yml up
+```
+
 ### Insertar datos
 
 ```bash
 $ python3 -m venv .venv
 $ source .venv/bin/activate
-$ pip install pandas openpyxl sqlalchemy pymysql pymongo cryptography
+$ pip install pandas openpyxl sqlalchemy pymysql pymongo cryptography tabulate
 $ python load.py
+```
+
+### Analizar queries
+
+```bash
+$ python benchmark.py
 ```
