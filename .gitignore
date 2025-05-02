@@ -1,3 +1,5 @@
 .DS_Store
 .vscode
 .venv
+mongo_data
+mysql_data

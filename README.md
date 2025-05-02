@@ -21,5 +21,6 @@ ______
 ```bash
 $ python3 -m venv .venv
 $ source .venv/bin/activate
-$ pip install pandas openpyxl sqlalchemy pymysql pymongo
+$ pip install pandas openpyxl sqlalchemy pymysql pymongo cryptography
+$ python load.py
 ```
