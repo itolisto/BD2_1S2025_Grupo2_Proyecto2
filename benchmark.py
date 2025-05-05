@@ -6,20 +6,20 @@ from sqlalchemy import create_engine, text
 from pymongo import MongoClient
 from pymongo.errors import OperationFailure
 
-# Configuración
+# Configuración (ajustada para coincidir con load.py)
 MYSQL_CONFIG = {
     "user": "usac",
     "password": "password",
-    "host": "localhost",
+    "host": "localhost",  # Coincide con load.py
     "port": 3306,
     "db": "bases2"
 }
-MONGO_URI = "mongodb://localhost:27017/"
+MONGO_URI = "mongodb://localhost:27017/"  # Coincide con load.py
 MONGO_DB = "bases2"
 
 REPEATS = 100
 
-# Consultas MySQL
+# Consultas MySQL (ajustadas para usar fechaHora en lugar de timestamp)
 mysql_queries = {
     "pacientes_por_categoria_edad": """
         SELECT
@@ -82,7 +82,7 @@ mysql_queries = {
     """
 }
 
-# Consultas MongoDB
+# Consultas MongoDB (ajustadas para la estructura de load.py)
 mongo_queries = {
     "pacientes_por_categoria_edad": [
         {"$group": {
@@ -148,59 +148,76 @@ mongo_queries = {
     ]
 }
 
-# Conexiones
-engine = create_engine(
-    f"mysql+pymysql://{MYSQL_CONFIG['user']}:{MYSQL_CONFIG['password']}@{MYSQL_CONFIG['host']}:{MYSQL_CONFIG['port']}/{MYSQL_CONFIG['db']}")
-mongo_client = MongoClient(MONGO_URI)
-mongo_db = mongo_client[MONGO_DB]
+def run_benchmark():
+    # Conexiones (con manejo de errores como en load.py)
+    try:
+        engine = create_engine(
+            f"mysql+pymysql://{MYSQL_CONFIG['user']}:{MYSQL_CONFIG['password']}@{MYSQL_CONFIG['host']}:{MYSQL_CONFIG['port']}/{MYSQL_CONFIG['db']}")
+        
+        mongo_client = MongoClient(MONGO_URI, serverSelectionTimeoutMS=5000)
+        mongo_client.server_info()  # Testear la conexión
+        mongo_db = mongo_client[MONGO_DB]
+    except Exception as e:
+        print(f"Error de conexión: {e}")
+        return
 
-# Resultados almacenados por consulta
-timings = {}
+    # Resultados almacenados por consulta
+    timings = {}
 
-print("🔁 Ejecutando benchmark (100 iteraciones por consulta)...")
+    print("🔁 Ejecutando benchmark (100 iteraciones por consulta)...")
 
-# Benchmark MySQL
-for name, query in mysql_queries.items():
-    mysql_times = []
-    for _ in range(REPEATS):
-        start = time.time()
-        with engine.connect() as conn:
-            conn.execute(text(query)).fetchall()
-        mysql_times.append(time.time() - start)
-    timings[name] = {
-        "MySQL avg (s)": round(np.mean(mysql_times), 5),
-        "MySQL med (s)": round(np.median(mysql_times), 5),
-        "MySQL p90 (s)": round(np.percentile(mysql_times, 90), 5),
-    }
+    # Benchmark MySQL
+    for name, query in mysql_queries.items():
+        mysql_times = []
+        for _ in range(REPEATS):
+            try:
+                start = time.time()
+                with engine.connect() as conn:
+                    conn.execute(text(query)).fetchall()
+                mysql_times.append(time.time() - start)
+            except Exception as e:
+                print(f"Error en consulta MySQL {name}: {e}")
+                mysql_times.append(None)
+        
+        valid_times = [t for t in mysql_times if t is not None]
+        if valid_times:
+            timings[name] = {
+                "MySQL avg (s)": round(np.mean(valid_times), 5),
+                "MySQL med (s)": round(np.median(valid_times), 5),
+                "MySQL p90 (s)": round(np.percentile(valid_times, 90), 5),
+            }
 
-# Benchmark MongoDB
-for name, pipeline in mongo_queries.items():
-    mongo_times = []
-    for _ in range(REPEATS):
-        start = time.time()
-        try:
-            list(mongo_db["Pacientes"].aggregate(pipeline))
-        except OperationFailure:
-            mongo_times.append(None)
-            continue
-        mongo_times.append(time.time() - start)
-    if name not in timings:
-        timings[name] = {}
-    valid_times = [t for t in mongo_times if t is not None]
-    if valid_times:
-        timings[name].update({
-            "Mongo avg (s)": round(np.mean(valid_times), 5),
-            "Mongo med (s)": round(np.median(valid_times), 5),
-            "Mongo p90 (s)": round(np.percentile(valid_times, 90), 5),
-        })
-    else:
-        timings[name].update({
-            "Mongo avg (s)": None,
-            "Mongo med (s)": None,
-            "Mongo p90 (s)": None,
-        })
+    # Benchmark MongoDB
+    for name, pipeline in mongo_queries.items():
+        mongo_times = []
+        for _ in range(REPEATS):
+            try:
+                start = time.time()
+                list(mongo_db["Pacientes"].aggregate(pipeline))
+                mongo_times.append(time.time() - start)
+            except OperationFailure as e:
+                print(f"Error en consulta MongoDB {name}: {e}")
+                mongo_times.append(None)
+        
+        valid_times = [t for t in mongo_times if t is not None]
+        if name not in timings:
+            timings[name] = {}
+        
+        if valid_times:
+            timings[name].update({
+                "Mongo avg (s)": round(np.mean(valid_times), 5),
+                "Mongo med (s)": round(np.median(valid_times), 5),
+                "Mongo p90 (s)": round(np.percentile(valid_times, 90), 5),
+            })
 
-# Mostrar resultados
-df = pd.DataFrame.from_dict(timings, orient="index")
-print("\n⏱️ Estadísticas de ejecución (100 repeticiones):\n")
-print(df.to_markdown(tablefmt="grid"))
+    # Mostrar resultados
+    df = pd.DataFrame.from_dict(timings, orient="index")
+    print("\n⏱️ Estadísticas de ejecución (100 repeticiones):\n")
+    print(df.to_markdown(tablefmt="grid"))
+
+    # Cerrar conexiones
+    mongo_client.close()
+    engine.dispose()
+
+if __name__ == "__main__":
+    run_benchmark()
