@@ -39,7 +39,7 @@ $ python benchmark.py
 
 
 
-# ANALISIS DE LOS PROCESOS
+# ANALISIS DE LAS BASES DE DATOS
 ## Análisis Comparativo: MySQL vs MongoDB para el Sistema Hospitalario
 
 ## Resultados del Benchmark
