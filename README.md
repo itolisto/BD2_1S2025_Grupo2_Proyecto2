@@ -55,6 +55,8 @@ $ python benchmark.py
 | top_5_habitaciones_menos_utilizadas | 0.13853       | 0.13301       | 0.17278       | 0.27523       | 0.24619       | 0.38146       |
 | dia_con_mas_pacientes               | 0.05585       | 0.05446       | 0.06401       | 0.24658       | 0.23194       | 0.30825       |
 
+![alt text](./imgs/image.png)
+
 Basado en los resultados del benchmark realizado con 100 iteraciones por consulta, podemos observar lo siguiente:
 
 1. **Consultas más rápidas en MongoDB**:
