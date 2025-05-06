@@ -25,7 +25,7 @@ db.Pacientes.aggregate([
     $group: {
       _id: "$actividades.habitacion.idHabitacion",
       nombre_habitacion: { $first: "$actividades.habitacion.nombre" },
-      pacientes_unicos: { $addToSet: "$idPaciente" }
+      pacientes_unicos: { $addToSet: "$_id" }
     }
   },
   {
@@ -34,8 +34,10 @@ db.Pacientes.aggregate([
       total_pacientes: { $size: "$pacientes_unicos" },
       _id: 0
     }
-  }
-]);
+  },
+  { $sort: { total_pacientes: -1 } }
+])
+
 
 
 -- 3. Cantidad de pacientes que llegan a la clínica, agrupados por género
@@ -75,7 +77,7 @@ db.Pacientes.aggregate([
     $group: {
       _id: "$actividades.habitacion.idHabitacion",
       nombre_habitacion: { $first: "$actividades.habitacion.nombre" },
-      pacientes_unicos: { $addToSet: "$idPaciente" }
+      pacientes_unicos: { $addToSet: "$_id" }
     }
   },
   {
@@ -89,6 +91,7 @@ db.Pacientes.aggregate([
   { $limit: 5 }
 ]);
 
+
 -- 7. Top 5 habitaciones menos utilizadas
 
 db.Pacientes.aggregate([
@@ -97,7 +100,7 @@ db.Pacientes.aggregate([
     $group: {
       _id: "$actividades.habitacion.idHabitacion",
       nombre_habitacion: { $first: "$actividades.habitacion.nombre" },
-      pacientes_unicos: { $addToSet: "$idPaciente" }
+      pacientes_unicos: { $addToSet: "$_id" }
     }
   },
   {
@@ -111,6 +114,7 @@ db.Pacientes.aggregate([
   { $limit: 5 }
 ]);
 
+
 -- 8. Día con más pacientes en la clínica
 
 db.Pacientes.aggregate([
@@ -118,7 +122,7 @@ db.Pacientes.aggregate([
   {
     $group: {
       _id: { $dateToString: { format: "%Y-%m-%d", date: "$actividades.fechaHora" } },
-      pacientes_unicos: { $addToSet: "$idPaciente" }
+      pacientes_unicos: { $addToSet: "$_id" }
     }
   },
   {

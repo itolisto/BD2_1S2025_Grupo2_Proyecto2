@@ -1,0 +1,338 @@
+{
+	"info": {
+		"_postman_id": "45017d15-ed7b-417c-b8ff-6a00cf64c786",
+		"name": "PROYECTO2_BASES2_MYSQL",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
+		"_exporter_id": "20302235"
+	},
+	"item": [
+		{
+			"name": "/pacientes_por_categoria_edad",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": "http://3.147.45.23:6500/pacientes_por_categoria_edad"
+			},
+			"response": [
+				{
+					"name": "New Request",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": "http://3.147.45.23:6500/pacientes_por_categoria_edad"
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "date",
+							"value": "Tue, 06 May 2025 04:13:36 GMT"
+						},
+						{
+							"key": "server",
+							"value": "uvicorn"
+						},
+						{
+							"key": "content-length",
+							"value": "173"
+						},
+						{
+							"key": "content-type",
+							"value": "application/json"
+						}
+					],
+					"cookie": [],
+					"body": "[\n    {\n        \"categoria_edad\": \"Geriátrico\",\n        \"total_pacientes\": 34089\n    },\n    {\n        \"categoria_edad\": \"Mediana edad\",\n        \"total_pacientes\": 82254\n    },\n    {\n        \"categoria_edad\": \"Pediátrico\",\n        \"total_pacientes\": 37841\n    }\n]"
+				}
+			]
+		},
+		{
+			"name": "/pacientes_por_habitacion",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": "http://3.147.45.23:6500/pacientes_por_habitacion"
+			},
+			"response": [
+				{
+					"name": "/pacientes_por_categoria_edad Copy",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": "http://3.147.45.23:6500/pacientes_por_habitacion"
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "date",
+							"value": "Tue, 06 May 2025 03:10:47 GMT"
+						},
+						{
+							"key": "server",
+							"value": "uvicorn"
+						},
+						{
+							"key": "content-length",
+							"value": "1177"
+						},
+						{
+							"key": "content-type",
+							"value": "application/json"
+						}
+					],
+					"cookie": [],
+					"body": "[\n    {\n        \"idHabitacion\": 1,\n        \"habitacion\": \"Sala de examenes 1\",\n        \"total_pacientes\": 2539\n    },\n    {\n        \"idHabitacion\": 2,\n        \"habitacion\": \"Sala de examenes 2\",\n        \"total_pacientes\": 2054\n    },\n    {\n        \"idHabitacion\": 3,\n        \"habitacion\": \"Sala de examenes 3\",\n        \"total_pacientes\": 1548\n    },\n    {\n        \"idHabitacion\": 4,\n        \"habitacion\": \"Sala de examenes 4\",\n        \"total_pacientes\": 1029\n    },\n    {\n        \"idHabitacion\": 5,\n        \"habitacion\": \"Sala de imagenes 1\",\n        \"total_pacientes\": 1428\n    },\n    {\n        \"idHabitacion\": 6,\n        \"habitacion\": \"Sala de procedimientos 1\",\n        \"total_pacientes\": 1527\n    },\n    {\n        \"idHabitacion\": 7,\n        \"habitacion\": \"Sala de procedimientos 2\",\n        \"total_pacientes\": 1350\n    },\n    {\n        \"idHabitacion\": 8,\n        \"habitacion\": \"Sala de procedimientos 3\",\n        \"total_pacientes\": 1022\n    },\n    {\n        \"idHabitacion\": 9,\n        \"habitacion\": \"Sala de procedimientos 4\",\n        \"total_pacientes\": 760\n    },\n    {\n        \"idHabitacion\": 10,\n        \"habitacion\": \"Recepcion\",\n        \"total_pacientes\": 6374\n    },\n    {\n        \"idHabitacion\": 11,\n        \"habitacion\": \"Laboratorio\",\n        \"total_pacientes\": 1683\n    },\n    {\n        \"idHabitacion\": 12,\n        \"habitacion\": \"Estación de revisión 1\",\n        \"total_pacientes\": 3562\n    },\n    {\n        \"idHabitacion\": 13,\n        \"habitacion\": \"Estación de revisión 2\",\n        \"total_pacientes\": 2155\n    },\n    {\n        \"idHabitacion\": 14,\n        \"habitacion\": \"Estación de revisión 3\",\n        \"total_pacientes\": 1092\n    },\n    {\n        \"idHabitacion\": 15,\n        \"habitacion\": \"Estación de revisión 4\",\n        \"total_pacientes\": 472\n    }\n]"
+				}
+			]
+		},
+		{
+			"name": "/pacientes_por_genero",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": "http://3.147.45.23:6500/pacientes_por_genero"
+			},
+			"response": [
+				{
+					"name": "/pacientes_por_habitacion Copy",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": "http://3.147.45.23:6500/pacientes_por_genero"
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "date",
+							"value": "Tue, 06 May 2025 03:12:09 GMT"
+						},
+						{
+							"key": "server",
+							"value": "uvicorn"
+						},
+						{
+							"key": "content-length",
+							"value": "135"
+						},
+						{
+							"key": "content-type",
+							"value": "application/json"
+						}
+					],
+					"cookie": [],
+					"body": "[\n    {\n        \"genero\": \"Otro\",\n        \"total_pacientes\": 5445\n    },\n    {\n        \"genero\": \"Femenino\",\n        \"total_pacientes\": 75214\n    },\n    {\n        \"genero\": \"Masculino\",\n        \"total_pacientes\": 73525\n    }\n]"
+				}
+			]
+		},
+		{
+			"name": "/top_5_edades_mas_atendidas",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": "http://3.147.45.23:6500/top_5_edades_mas_atendidas"
+			},
+			"response": [
+				{
+					"name": "/pacientes_por_genero Copy",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": "http://3.147.45.23:6500/top_5_edades_mas_atendidas"
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "date",
+							"value": "Tue, 06 May 2025 03:12:47 GMT"
+						},
+						{
+							"key": "server",
+							"value": "uvicorn"
+						},
+						{
+							"key": "content-length",
+							"value": "123"
+						},
+						{
+							"key": "content-type",
+							"value": "application/json"
+						}
+					],
+					"cookie": [],
+					"body": "[\n    {\n        \"edad\": 4,\n        \"total\": 2427\n    },\n    {\n        \"edad\": 8,\n        \"total\": 2418\n    },\n    {\n        \"edad\": 2,\n        \"total\": 2391\n    },\n    {\n        \"edad\": 15,\n        \"total\": 2389\n    },\n    {\n        \"edad\": 11,\n        \"total\": 2382\n    }\n]"
+				}
+			]
+		},
+		{
+			"name": "/top_5_edades_menos_atendidas",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": "http://3.147.45.23:6500/top_5_edades_menos_atendidas"
+			},
+			"response": [
+				{
+					"name": "/top_5_edades_mas_atendidas Copy",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": "http://3.147.45.23:6500/top_5_edades_menos_atendidas"
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "date",
+							"value": "Tue, 06 May 2025 03:13:33 GMT"
+						},
+						{
+							"key": "server",
+							"value": "uvicorn"
+						},
+						{
+							"key": "content-length",
+							"value": "121"
+						},
+						{
+							"key": "content-type",
+							"value": "application/json"
+						}
+					],
+					"cookie": [],
+					"body": "[\n    {\n        \"edad\": 90,\n        \"total\": 753\n    },\n    {\n        \"edad\": 76,\n        \"total\": 756\n    },\n    {\n        \"edad\": 79,\n        \"total\": 771\n    },\n    {\n        \"edad\": 77,\n        \"total\": 777\n    },\n    {\n        \"edad\": 83,\n        \"total\": 778\n    }\n]"
+				}
+			]
+		},
+		{
+			"name": "/top_5_habitaciones_mas_utilizadas",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": "http://3.147.45.23:6500/top_5_habitaciones_mas_utilizadas"
+			},
+			"response": [
+				{
+					"name": "/top_5_edades_menos_atendidas Copy",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": "http://3.147.45.23:6500/top_5_habitaciones_mas_utilizadas"
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "date",
+							"value": "Tue, 06 May 2025 03:14:18 GMT"
+						},
+						{
+							"key": "server",
+							"value": "uvicorn"
+						},
+						{
+							"key": "content-length",
+							"value": "337"
+						},
+						{
+							"key": "content-type",
+							"value": "application/json"
+						}
+					],
+					"cookie": [],
+					"body": "[\n    {\n        \"idHabitacion\": 10,\n        \"habitacion\": \"Recepcion\",\n        \"total\": 6374\n    },\n    {\n        \"idHabitacion\": 12,\n        \"habitacion\": \"Estación de revisión 1\",\n        \"total\": 3562\n    },\n    {\n        \"idHabitacion\": 1,\n        \"habitacion\": \"Sala de examenes 1\",\n        \"total\": 2539\n    },\n    {\n        \"idHabitacion\": 13,\n        \"habitacion\": \"Estación de revisión 2\",\n        \"total\": 2155\n    },\n    {\n        \"idHabitacion\": 2,\n        \"habitacion\": \"Sala de examenes 2\",\n        \"total\": 2054\n    }\n]"
+				}
+			]
+		},
+		{
+			"name": "/top_5_habitaciones_menos_utilizadas",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": "http://3.147.45.23:6500/top_5_habitaciones_menos_utilizadas"
+			},
+			"response": [
+				{
+					"name": "/top_5_habitaciones_mas_utilizadas Copy",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": "http://3.147.45.23:6500/top_5_habitaciones_menos_utilizadas"
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "date",
+							"value": "Tue, 06 May 2025 03:52:47 GMT"
+						},
+						{
+							"key": "server",
+							"value": "uvicorn"
+						},
+						{
+							"key": "content-length",
+							"value": "355"
+						},
+						{
+							"key": "content-type",
+							"value": "application/json"
+						}
+					],
+					"cookie": [],
+					"body": "[\n    {\n        \"idHabitacion\": 15,\n        \"habitacion\": \"Estación de revisión 4\",\n        \"total\": 472\n    },\n    {\n        \"idHabitacion\": 9,\n        \"habitacion\": \"Sala de procedimientos 4\",\n        \"total\": 760\n    },\n    {\n        \"idHabitacion\": 8,\n        \"habitacion\": \"Sala de procedimientos 3\",\n        \"total\": 1022\n    },\n    {\n        \"idHabitacion\": 4,\n        \"habitacion\": \"Sala de examenes 4\",\n        \"total\": 1029\n    },\n    {\n        \"idHabitacion\": 14,\n        \"habitacion\": \"Estación de revisión 3\",\n        \"total\": 1092\n    }\n]"
+				}
+			]
+		},
+		{
+			"name": "/dia_con_mas_pacientes",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": "http://3.147.45.23:6500/dia_con_mas_pacientes"
+			},
+			"response": [
+				{
+					"name": "/top_5_habitaciones_menos_utilizadas Copy",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": "http://3.147.45.23:6500/dia_con_mas_pacientes"
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "date",
+							"value": "Tue, 06 May 2025 04:16:25 GMT"
+						},
+						{
+							"key": "server",
+							"value": "uvicorn"
+						},
+						{
+							"key": "content-length",
+							"value": "36"
+						},
+						{
+							"key": "content-type",
+							"value": "application/json"
+						}
+					],
+					"cookie": [],
+					"body": "[\n    {\n        \"fecha\": \"2021-07-21\",\n        \"total\": 144\n    }\n]"
+				}
+			]
+		}
+	]
+}

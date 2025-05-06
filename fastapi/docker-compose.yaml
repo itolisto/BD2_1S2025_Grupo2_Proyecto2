@@ -1,0 +1,46 @@
+version: '3.8'
+
+services:
+  mysql:
+    image: mysql:8
+    container_name: mysql_db
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: password
+      MYSQL_DATABASE: bases2
+      MYSQL_USER: usac
+      MYSQL_PASSWORD: password
+    volumes:
+      - ./mysql_data:/var/lib/mysql
+    ports:
+      - "3306:3306"
+
+  mongo:
+    image: mongo:latest
+    container_name: mongo_db
+    restart: always
+    volumes:
+      - ./mongo_data:/data/db
+    ports:
+      - "27017:27017"
+
+  backend:
+    build:
+      context: ./../fastapi
+      dockerfile: Dockerfile
+    image: apipython
+    container_name: apipython
+    environment:
+      - PORT=${PORT}
+      - DBSERVICE=${DBSERVICE}
+      - DB_USER=${DB_USER}
+      - DB_PASSWORD=${DB_PASSWORD}
+      - DB_NAME=${DB_NAME}
+      - MONGO_URI=${MONGO_URI}
+      - MONGO_DB=${MONGO_DB}
+    ports:
+      - "6500:6500"
+    depends_on:
+      - mysql
+      - mongo
+    restart: always

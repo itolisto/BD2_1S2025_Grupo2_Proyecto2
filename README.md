@@ -1,7 +1,7 @@
 # <div align="center">  Proyecto #2 - Grupo 2 </div>
-
 ## <div align="center">  Laboratorio Sistemas de Bases de Datos 2 - Sección A </div>
 ## <div align="center">  Primer Semestre 2025 </div> 
+*<div align="center"> 5 de mayo de 2025 </div>*
 ___
 
 ## Miembros
@@ -72,6 +72,107 @@ $ python load.py
 ```bash
 $ python benchmark.py
 ```
+___
+
+## <div align="center">  API de Python para Consultas en ambas bases de datos. </div> 
+
+Ingresar a la carpeta de fastapi y correr el contenedor de docker que contiene las dos bases de datos y la api desarrollada con fast api.
+
+```bash
+cd fastapi
+docker compose up --build -d
+```
+
+Las consultas se hicieron con Postman, se tienen las respuestas de las consultas dentro de la carpeta endpoints, con las colecciones de los endpoints.
+
+### Consultas MYSQL
+
+1. **Total de pacientes que llegan a la clínica por edad catalogados por las
+siguientes categorías**
+- Pediátrico: menores de 18 años
+- Mediana edad: entre 18 y 60 años
+- Geriátrico: mayores de 60 años
+
+<img src="./imgs/mysql_1.png">
+
+2. **Cantidad de pacientes que pasan por cada habitación**
+
+<img src="./imgs/mysql_2.png">
+
+<img src="./imgs/mysql_2v.png">
+
+<img src="./imgs/mysql_3v.png">
+
+3. **Cantidad de pacientes que llegan a la clínica, agrupados por género**
+
+<img src="./imgs/mysql_generos.png">
+
+4. **Top 5 edades más atendidas en la clínica**
+
+<img src="./imgs/mysql_top5mas.png">
+
+5. **Top 5 edades menos atendidas en la clínica**
+
+<img src="./imgs/mysql_top5menos.png">
+
+6. **Top 5 habitaciones más utilizadas**
+
+<img src="./imgs/mysql_top5hab.png">
+
+7. **Top 5 habitaciones menos utilizadas**
+
+<img src="./imgs/mysql_top5menoshab.png">
+
+
+8. **Día con más pacientes en la clínica**
+
+<img src="./imgs/mysql_dia.png">
+
+
+### Consultas MongoDB
+
+
+1. **Total de pacientes que llegan a la clínica por edad catalogados por las
+siguientes categorías**
+- Pediátrico: menores de 18 años
+- Mediana edad: entre 18 y 60 años
+- Geriátrico: mayores de 60 años
+
+<img src="./imgs/mongo_1.png">
+
+
+2. **Cantidad de pacientes que pasan por cada habitación**
+
+<img src="./imgs/mongo_2.png">
+
+<img src="./imgs/mongo_2v.png">
+
+<img src="./imgs/mongo_2v2.png">
+
+3. **Cantidad de pacientes que llegan a la clínica, agrupados por género**
+
+<img src="./imgs/mysql_3g.png">
+
+4. **Top 5 edades más atendidas en la clínica**
+
+<img src="./imgs/mysql_4.png">
+
+5. **Top 5 edades menos atendidas en la clínica**
+
+<img src="./imgs/mysql_5.png">
+
+
+6. **Top 5 habitaciones más utilizadas**
+
+<img src="./imgs/mongo_top5hab.png">
+
+7. **Top 5 habitaciones menos utilizadas**
+
+<img src="./imgs/mongo_top5habmenos.png">
+
+8. **Día con más pacientes en la clínica**
+
+<img src="./imgs/mongo_8.png">
 
 ___
 
